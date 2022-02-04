@@ -1,0 +1,12 @@
+<div class="card">
+  <%= image_tag product.image_url, class:"card-img-top"%>
+  <div class="card-body">
+    <h5 class="card-title"><%= "#{product.id}. #{product.name}"%></h5>
+    <p class="card-text"><%= product.description %></p>
+    <p class="card-text"><%= product.price %></p>
+    <div class="d-flex justify-content-between">
+      <%= link_to "編輯", edit_product_path(product), class:"btn btn-primary" %>
+      <%= link_to "刪除", product_path(product), method: "delete", data: {confirm: "確認刪除？"}, class:"btn btn-danger" %>
+    </div>
+  </div>
+</div>

@@ -12,7 +12,8 @@ PRODUCT_COUNT = 100
   product = {
     name: "馬卡龍",
     description: "好吃",
-    image_url: "https://images.pexels.com/photos/239581/pexels-photo-239581.jpeg"
+    image_url: "https://images.pexels.com/photos/239581/pexels-photo-239581.jpeg",
+    price: 300
 }
 
 Product.create(product)
