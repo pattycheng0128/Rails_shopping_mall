@@ -1,0 +1,15 @@
+<h1>登入</h1>
+
+<%= form_for(@user, url:create_session_path) do |f| %>
+<div>
+  <%= f.label :email, "信箱" %>
+  <%= f.email_field :email %>
+</div>
+<div>
+  <%= f.label :password, "密碼" %>
+  <%= f.password_field :password%>
+</div>
+<div>
+  <%= f.submit "登入" %>
+</div>
+<% end %>

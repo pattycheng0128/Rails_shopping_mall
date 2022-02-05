@@ -12,6 +12,7 @@
 
   <body>
     <%= render 'layouts/nav' %>
+    <%= render 'shared/flash_message' if notice %>
     <%= yield %>
     <%= render 'layouts/footer' %>
   </body>

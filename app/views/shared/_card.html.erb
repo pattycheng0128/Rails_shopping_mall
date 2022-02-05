@@ -2,11 +2,13 @@
   <%= image_tag product.image_url, class:"card-img-top"%>
   <div class="card-body">
     <h5 class="card-title"><%= "#{product.id}. #{product.name}"%></h5>
-    <p class="card-text"><%= product.description %></p>
-    <p class="card-text"><%= product.price %></p>
-    <div class="d-flex justify-content-between">
-      <%= link_to "編輯", edit_product_path(product), class:"btn btn-primary" %>
-      <%= link_to "刪除", product_path(product), method: "delete", data: {confirm: "確認刪除？"}, class:"btn btn-danger" %>
-    </div>
+    <p class="card-text">敘述: <%= product.description %></p>
+    <p class="card-text">價錢: <%= product.price %></p>
+    <% if user_signed_in? %>
+      <div class="d-flex justify-content-between">
+        <%= link_to "編輯", edit_product_path(product), class:"btn btn-primary" %>
+        <%= link_to "刪除", product_path(product), method: "delete", data: {confirm: "確認刪除？"}, class:"btn btn-danger" %>
+      </div>
+    <% end %>
   </div>
 </div>

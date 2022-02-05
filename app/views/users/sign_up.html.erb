@@ -1,0 +1,23 @@
+<h1>註冊</h1>
+
+<%= form_for(@user, url:account_verify_path) do |f| %>
+<div>
+  <%= f.label :name, "姓名" %>
+  <%= f.text_field :name %>
+</div>
+<div>
+  <%= f.label :email, "信箱" %>
+  <%= f.email_field :email %>
+</div>
+<div>
+  <%= f.label :password, "密碼" %>
+  <%= f.password_field :password%>
+</div>
+<div>
+  <%= f.label :is_admin, "管理者權限" %>
+  <%= f.check_box :is_admin %>
+</div>
+<div>
+  <%= f.submit "註冊" %>
+</div>
+<% end %>
