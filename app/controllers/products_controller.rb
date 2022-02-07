@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
   end
 
   def update
-    # 為什麼可以用:image?
+    # [:image] 對到 view
     image = params[:product][:image]
 
     if image
