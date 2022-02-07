@@ -8,7 +8,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
-// window.$ = window.jQuery = require("jquery")
+window.$ = window.jQuery = require("jquery")
 import 'bootstrap'
 
 Rails.start()

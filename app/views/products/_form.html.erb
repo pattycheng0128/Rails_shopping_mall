@@ -1,25 +1,48 @@
 <%= form_for(@product) do |f| %>
   <div>
-    <%= f.label :name %>
+    <%= f.label :name, "名稱" %>
     <%= f.text_field :name %>
   </div>
   <div>
-    <%= f.label :description %>
+    <%= f.label :description, "敘述" %>
     <%= f.text_field :description %>
   </div>
   <div>
-    <%= f.label :image_url %>
-    <%= f.text_field :image_url %>
+    <%= f.label :image, "圖片" %>
+    <%= image_tag @product.image_url || "https://via.placeholder.com/300x200", size: "300x200", id: "target", original_url: @product.image_url %></br>
+    <%= f.file_field :image, accept:"image/gif, image/jpeg, image/png" %>
   </div>
   <div>
-    <%= f.label :price %>
+    <%= f.label :price, "價錢" %>
     <%= f.number_field :price %>
   </div>
   <div>
-    <%= f.label :subcategory_id %>
+    <%= f.label :subcategory_id, "類別" %>
     <%= f.select :subcategory_id, Subcategory.all.collect { |s| [ s.name_with_category, s.id ] }, include_blank: '請選擇' %>
   </div>
   <div>
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+  $(function(){
+    $("#product_image").change(function () {
+      readURL(this, "target");
+    });
+
+    function readURL(input, image_tag_id){
+      if(input.files && input.files[0]){
+        console.log(input.files[0]);
+        const reader = new FileReader();
+        reader.onload = function(e){
+          $("#" + image_tag_id).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+      }else{
+        const original_url = $("#" + image_tag_id).attr("original_url");
+        $("#" + image_tag_id).attr('src', original_url);
+      }
+    }
+  });
+</script>

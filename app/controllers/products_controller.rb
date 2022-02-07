@@ -41,25 +41,29 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(clean_params)
-    if @product.save
-      redirect_to products_path, notice: "新增成功"
-    else
-      render :new
+    image = params[:product][:image]
+    if image
+      image_url = save_file(image)
     end
+
+    product = Product.create(clean_params.merge(image_url: image_url))
+    redirect_to products_path, notice: "新增成功"
   end
 
   def edit
   end
 
   def update
-    if @product.present?
-      @product.update(clean_params)
-      redirect_to products_path, notice: "更新成功"
-      return
+    # 為什麼可以用:image?
+    image = params[:product][:image]
+
+    if image
+      image_url = save_file(image)
+      @product.update(clean_params.merge(image_url: image_url))
     else
-      redirect_to products_path, notice: "更新失敗"
+      @product.update(clean_params)
     end
+    redirect_to products_path, notice: "更新成功"
   end
 
   def destroy
@@ -69,9 +73,22 @@ class ProductsController < ApplicationController
     redirect_to products_path, notice: "刪除成功"
   end
 
+  def save_file(newFile)
+    dir_url = Rails.root.join('public', 'uploads/products')
+    FileUtils.mkdir_p(dir_url) unless File.directory?(dir_url)
+
+    file_url = dir_url + newFile.original_filename
+
+    File.open(file_url, 'w+b') do |file|
+      file.write(newFile.read)
+    end
+
+    return '/uploads/products/' + newFile.original_filename
+  end
+
   private
   def clean_params
-    params.require(:product).permit(:name, :description, :image_url, :price, :subcategory_id)
+    params.require(:product).permit(:name, :description, :price, :subcategory_id)
   end
 
   def find_product
