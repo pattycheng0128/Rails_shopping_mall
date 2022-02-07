@@ -19,6 +19,9 @@ class ProductsController < ApplicationController
 
     @products = Product.all.order(:id)
 
+    # 首頁類別/副類別
+    @categories = Category.all
+
     # 分頁功能
     @first_page = 1
     count = @products.count
@@ -68,7 +71,7 @@ class ProductsController < ApplicationController
 
   private
   def clean_params
-    params.require(:product).permit(:name, :description, :image_url, :price)
+    params.require(:product).permit(:name, :description, :image_url, :price, :subcategory_id)
   end
 
   def find_product

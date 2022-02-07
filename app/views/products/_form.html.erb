@@ -16,6 +16,10 @@
     <%= f.number_field :price %>
   </div>
   <div>
+    <%= f.label :subcategory_id %>
+    <%= f.select :subcategory_id, Subcategory.all.collect { |s| [ s.name_with_category, s.id ] }, include_blank: '請選擇' %>
+  </div>
+  <div>
     <%= f.submit %>
   </div>
 <% end %>
