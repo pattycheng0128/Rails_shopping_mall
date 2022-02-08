@@ -1,7 +1,9 @@
-<div class="card">
+<div class="card mt-2">
   <%= image_tag product.image_url, class:"card-img-top"%>
   <div class="card-body">
-    <h5 class="card-title"><%= "#{product.id}. #{product.name}"%></h5>
+    <%= link_to product_path(product) do %>
+      <h5 class="card-title"><%= "#{product.id}. #{product.name}"%></h5>
+    <% end %>
     <p class="card-text">敘述: <%= product.description %></p>
     <p class="card-text">價錢: <%= product.price %></p>
     <p class="card-text">類別: <%= product.subcategory.name_with_category %></p>

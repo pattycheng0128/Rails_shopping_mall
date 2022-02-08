@@ -15,4 +15,19 @@ Rails.application.routes.draw do
   
   delete "/sign_out", to: "users#sign_out"
 
+  # category, param for products view
+  resources :categories, param: :category_id, only: [] do
+    # categories/:id/products
+    member do
+      get :products
+
+      #categories/:id/subcategories/:id/products, , param for products view
+      resources :subcategories, param: :subcategory_id, only: [] do
+        member do
+          get :products
+        end
+      end
+    end
+  end
+
 end

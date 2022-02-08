@@ -1,39 +1,13 @@
 class ProductsController < ApplicationController
 
-  before_action :find_product, only:[:edit, :update, :destroy]
+  before_action :find_product, only:[:edit, :update, :show, :destroy]
+  before_action :prepare_index, only: [:index,:show, :products]
+  before_action :get_products, only: [:index, :products]
+  before_action :create_pagination, only: [:index, :products]
+
   LIMIT_PRODUCT_NUMBER = 20
 
   def index
-    @ad = {
-      title: "廣告",
-      description: "描述"
-    }
-
-    # 會去抓網址上面 page 的頁面數量(因為:page是從1開始,所以要減1),如果為 nil 會有問題
-    # page = params[:page].to_i - 1
-    if params[:page]
-      @page = params[:page].to_i
-    else
-      @page = 1
-    end
-
-    @products = Product.all.order(:id)
-
-    # 首頁類別/副類別
-    @categories = Category.all
-
-    # 分頁功能
-    @first_page = 1
-    count = @products.count
-    @last_page = (count / LIMIT_PRODUCT_NUMBER)
-
-    # 有餘數要多一頁
-    if (count % LIMIT_PRODUCT_NUMBER)
-      @last_page += 1
-    end
-
-    # 會覆寫掉 @products 內容
-    @products = @products.offset((@page - 1) * LIMIT_PRODUCT_NUMBER).limit(LIMIT_PRODUCT_NUMBER)
   end
 
   def new
@@ -66,11 +40,23 @@ class ProductsController < ApplicationController
     redirect_to products_path, notice: "更新成功"
   end
 
+  def show
+  end
+
   def destroy
     if @product.present?
       @product.destroy
     end
     redirect_to products_path, notice: "刪除成功"
+  end
+
+  private
+  def clean_params
+    params.require(:product).permit(:name, :description, :price, :subcategory_id)
+  end
+
+  def find_product
+    @product = Product.find(params[:id])
   end
 
   def save_file(newFile)
@@ -86,13 +72,51 @@ class ProductsController < ApplicationController
     return '/uploads/products/' + newFile.original_filename
   end
 
-  private
-  def clean_params
-    params.require(:product).permit(:name, :description, :price, :subcategory_id)
+  def prepare_index
+    create_ad
+    get_current_page
+    get_all_categories
   end
 
-  def find_product
-    @product = Product.find(params[:id])
+  def create_ad
+    @ad = {
+      title: "廣告",
+      description: "描述"
+    }
+  end
+
+  def get_current_page
+    # 會去抓網址上面 page 的頁面數量(因為:page是從1開始,所以要減1),如果為 nil 會有問題
+    # page = params[:page].to_i - 1
+    if params[:page]
+      @page = params[:page].to_i
+    else
+      @page = 1
+    end
+  end
+
+  def get_all_categories
+    # 首頁類別/副類別
+    @categories = Category.all
+  end
+
+  def get_products
+    @products = Product.all.order(:id)
+  end
+
+  def create_pagination
+    # 分頁功能
+    @first_page = 1
+    count = @products.count
+    @last_page = (count / LIMIT_PRODUCT_NUMBER)
+
+    # 有餘數要多一頁
+    if (count % LIMIT_PRODUCT_NUMBER)
+      @last_page += 1
+    end
+
+    # 會覆寫掉 @products 內容
+    @products = @products.offset((@page - 1) * LIMIT_PRODUCT_NUMBER).limit(LIMIT_PRODUCT_NUMBER)
   end
 
 end

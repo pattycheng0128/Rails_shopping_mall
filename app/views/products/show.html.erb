@@ -1,0 +1,39 @@
+<h1>show頁面</h1>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-3">
+      <ul class="list-group">
+        <%= render "shared/list_group", categories: @categories %>
+      </ul>
+    </div>
+    <div class="col-9">
+      <div class="row">
+        <div class="col-12">
+          <p>類別: <%= @product.subcategory.name_with_category %></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-4">
+                <%= image_tag @product.image_url || "https://via.placeholder.com/300x200", class:"img-fluid rounded-start" %>
+              </div>
+              <div class="col-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%= @product.name %></h5>
+                  <p class="card-text">敘述: <%= @product.description %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <a href="#" class="btn btn-primary">直接購買</a>
+      </div>
+    </div>
+  </div>
+</div>
+
