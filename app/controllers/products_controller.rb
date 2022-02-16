@@ -101,7 +101,9 @@ class ProductsController < ApplicationController
   end
 
   def get_products
-    @products = Product.all.order(:id)
+    # @products = Product.all.order(:id)
+    @q = Product.all.order(:id).ransack(params[:q])
+    @products = @q.result(distinct: true)
   end
 
   def create_pagination

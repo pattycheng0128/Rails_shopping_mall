@@ -1,0 +1,33 @@
+<div class="container mt-3">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">項目</th>
+        <th scope="col">課程名稱</th>
+        <th scope="col">課程價格</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <% @buy_now_items.each_with_index do |item, index| %>
+      <tbody>
+        <tr>
+          <th scope="row"><%= index+1 %></th>
+          <td><%= item.product.name %></td>
+          <td><%= item.product.price %></td>
+          <td><%= link_to "刪除", cart_item_path(item), method: "delete" %></td>
+        </tr>
+      </tbody>
+    <% end %>
+    <tfoot>
+      <tr>
+        <th scope="row">總金額</th>
+        <td></td>
+        <td></td>
+        <td><%= @total_price %></td>
+      </tr>
+    </tfoot>
+  </table>
+  <%= form_tag orders_path, method: :post do %>
+    <%= submit_tag "確定購買", class:"btn btn-primary"%>
+  <% end %>
+</div>

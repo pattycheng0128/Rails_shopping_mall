@@ -31,7 +31,11 @@
         </div>
       </div>
       <div class="row mt-2">
-        <a href="#" class="btn btn-primary">直接購買</a>
+        <%= form_tag cart_items_path, method: :post do %>
+          <%= hidden_field_tag(:product_id, @product.id) %>
+          <%= hidden_field_tag(:cart_type, Cart.cart_types[:buy_now]) %>
+          <button type="submit" class="btn btn-primary">加入購物車</button>
+        <% end %>
       </div>
     </div>
   </div>

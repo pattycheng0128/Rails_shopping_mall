@@ -1,20 +1,26 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <%= link_to "Navbar", root_path, class:"navbar-brand" %>
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
+    <%= search_form_for @q, class:"d-flex" do |f| %>
+      <%= f.search_field :name_cont, class:"form-control me-2", placeholder:"輸入名稱" %>
+      <%= f.submit "Search",class:"btn btn-outline-success"  %>
+    <% end %>
+
     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
       <ul class="navbar-nav">
+        <<li class="nav-item">
+          <%= link_to "結帳", cart_items_path, class:"nav-link" %>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             會員
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <% if current_user %>
-              <li><%= link_to "登出", sign_out_path, method: "delete", class: "dropdown-item" %></li>
-              <li><%= link_to "新增商品", new_product_path, class: "dropdown-item" %></li>
+              <% current_user.is_admin? %>
+                <li><%= link_to "登出", sign_out_path, method: "delete", class: "dropdown-item" %></li>
+                <li><%= link_to "新增商品", new_product_path, class: "dropdown-item" %></li>
+                <li><a href="#">查看訂單</a></li>
             <% else %>
               <li><%= link_to "註冊", sign_up_path, class:"dropdown-item" %></li>
               <li><%= link_to "登入", sign_in_path, class:"dropdown-item" %></li>
