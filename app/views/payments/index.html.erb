@@ -16,9 +16,10 @@
       </tbody>
   </table>
 
-  <%= form_tag order_path(@order), method: :patch do %>
-    <%= hidden_field_tag :payment_method, "credit_card" %>
-    <%= submit_tag "信用卡付款", class:"btn btn-primary"%>
-  <% end %>
-
+  <div class="d-flex justify-content-end">
+    <%= form_tag order_path(@order), method: :patch do %>
+      <%= hidden_field_tag :payment_method, "credit_card" %>
+      <%= submit_tag "信用卡付款", class:"btn btn-primary"%>
+    <% end %>
+  </div>
 </div>

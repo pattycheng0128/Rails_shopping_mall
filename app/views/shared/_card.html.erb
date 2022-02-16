@@ -7,7 +7,7 @@
     <p class="card-text">敘述: <%= product.description %></p>
     <p class="card-text">價錢: <%= product.price %></p>
     <p class="card-text">類別: <%= product.subcategory.name_with_category %></p>
-    <% if user_signed_in? %>
+    <% if user_signed_in? && current_user.is_admin? %>
       <div class="d-flex justify-content-between">
         <%= link_to "編輯", edit_product_path(product), class:"btn btn-primary" %>
         <%= link_to "刪除", product_path(product), method: "delete", data: {confirm: "確認刪除？"}, class:"btn btn-danger" %>

@@ -27,7 +27,10 @@
       </tr>
     </tfoot>
   </table>
-  <%= form_tag orders_path, method: :post do %>
-    <%= submit_tag "確定購買", class:"btn btn-primary"%>
-  <% end %>
+  <div class="d-flex justify-content-end">
+    <%= form_tag orders_path, method: :post do %>
+      <%= submit_tag "確定購買", class:"btn btn-primary"%>
+    <% end %>
+  </div>
+  
 </div>

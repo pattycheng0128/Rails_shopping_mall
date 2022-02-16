@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_path, notice: "登入成功"
     else
-      render :sign_in, notice: "no user"
+      redirect_to root_path, notice: "您還沒註冊或帳密輸入錯誤"
     end
   end
 
