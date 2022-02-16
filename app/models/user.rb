@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   validates :name, :email, presence: true
   has_many :carts
+  has_many :orders
   before_create :encryted_password
   after_create :create_carts
 

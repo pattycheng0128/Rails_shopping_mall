@@ -20,7 +20,7 @@
               <% current_user.is_admin? %>
                 <li><%= link_to "登出", sign_out_path, method: "delete", class: "dropdown-item" %></li>
                 <li><%= link_to "新增商品", new_product_path, class: "dropdown-item" %></li>
-                <li><a href="#">查看訂單</a></li>
+                <li><%= link_to "查看訂單", orders_path, class: "dropdown-item"%></li>
             <% else %>
               <li><%= link_to "註冊", sign_up_path, class:"dropdown-item" %></li>
               <li><%= link_to "登入", sign_in_path, class:"dropdown-item" %></li>

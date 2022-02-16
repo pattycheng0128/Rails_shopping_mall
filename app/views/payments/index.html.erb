@@ -1,0 +1,24 @@
+<div class="container mt-3">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">訂單號碼</th>
+        <th scope="col">訂單金額</th>
+        <th scope="col">收件人信箱</th>
+      </tr>
+    </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><%= @order.id %></th>
+          <td><%= @order.total_price %></td>
+          <td><%= @order.user.email %></td>
+        </tr>
+      </tbody>
+  </table>
+
+  <%= form_tag order_path(@order), method: :patch do %>
+    <%= hidden_field_tag :payment_method, "credit_card" %>
+    <%= submit_tag "信用卡付款", class:"btn btn-primary"%>
+  <% end %>
+
+</div>

@@ -1,0 +1,26 @@
+<div class="container mt-3">
+<h1>所有訂單記錄</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">訂單號碼</th>
+        <th scope="col">訂單狀態</th>
+        <th scope="col">訂單金額</th>
+        <th scope="col">查看</th>
+      </tr>
+    </thead>
+    <% @orders.each do |order| %>
+      <tbody>
+        <tr>
+          <th scope="row"><%= order.id %></th>
+          <% if order.status == "paid"%>
+            <td>已付款</td>
+          <% else %>
+            <td>未付款</td>
+          <% end %>
+          <td><%= order.total_price %></td>
+          <td><%= link_to "訂單資訊", order_path(order) %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>

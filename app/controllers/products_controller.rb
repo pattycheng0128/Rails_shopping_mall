@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
 
+  before_action :if_not_admin, only: [:new, :edit, :update, :destroy]
   before_action :find_product, only:[:edit, :update, :show, :destroy]
   before_action :prepare_index, only: [:index,:show, :products]
   before_action :get_products, only: [:index, :products]
@@ -57,6 +58,12 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find(params[:id])
+  end
+
+  def if_not_admin
+    if !current_user.is_admin
+      redirect_to products_path, notice:"您沒有權限"
+    end
   end
 
   def save_file(newFile)
